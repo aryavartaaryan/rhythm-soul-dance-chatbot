@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+/* ── Design tokens ─────────────────────────────────── */
+:root {
+  --bg:          #0B0B10;
+  --surface:     #13131A;
+  --surface2:    #1C1C28;
+  --border:      rgba(255,255,255,0.08);
+  --accent-from: #F43F5E;
+  --accent-mid:  #8B5CF6;
+  --accent-to:   #6366F1;
+  --text-primary:   #F2F2F8;
+  --text-secondary: #9191A8;
+  --text-muted:     #5A5A72;
+  --green: #22C55E;
+}
+
+[data-theme="light"] {
+  --bg:          #F4F4F8;
+  --surface:     #FFFFFF;
+  --surface2:    #EBEBF2;
+  --border:      rgba(0,0,0,0.08);
+  --text-primary:   #0B0B10;
+  --text-secondary: #4A4A60;
+  --text-muted:     #8888A0;
+}
+
+/* ── Base ───────────────────────────────────────────── */
+html { scroll-behavior: smooth; height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+#__next, main { height: 100%; }
+
+/* ── Scrollbars ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); }
+
+/* ── Glassmorphism helper ───────────────────────────── */
+.glass {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+}
+[data-theme="light"] .glass {
+  background: rgba(255,255,255,0.7);
+}
+
+/* ── Gradient text ──────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-from), var(--accent-mid), var(--accent-to));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Gradient border ring ───────────────────────────── */
+.gradient-ring {
+  background: linear-gradient(135deg, var(--accent-from), var(--accent-mid), var(--accent-to)) border-box;
+  border: 2px solid transparent;
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: subtract;
+  -webkit-mask-composite: destination-out;
+}
+
+/* ── Noise overlay for background depth ─────────────── */
+.noise::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  z-index: 0;
+}
+
+/* ── Prose resets for ReactMarkdown ─────────────────── */
+.prose-chat p { margin: 0.25rem 0; line-height: 1.6; }
+.prose-chat p:first-child { margin-top: 0; }
+.prose-chat p:last-child  { margin-bottom: 0; }
+.prose-chat ul { list-style: disc; padding-left: 1.25rem; margin: 0.35rem 0; }
+.prose-chat ol { list-style: decimal; padding-left: 1.25rem; margin: 0.35rem 0; }
+.prose-chat li { margin: 0.15rem 0; }
+.prose-chat strong { font-weight: 700; color: inherit; }
+.prose-chat code { font-size: 0.8em; background: rgba(255,255,255,0.1); border-radius: 4px; padding: 0.1em 0.3em; font-family: monospace; }
+.prose-chat table { border-collapse: collapse; width: 100%; margin: 0.5rem 0; font-size: 0.85em; }
+.prose-chat th { background: rgba(255,255,255,0.08); padding: 0.4rem 0.7rem; text-align: left; }
+.prose-chat td { padding: 0.35rem 0.7rem; border-top: 1px solid rgba(255,255,255,0.06); }
+[data-theme="light"] .prose-chat code { background: rgba(0,0,0,0.07); }
+[data-theme="light"] .prose-chat th { background: rgba(0,0,0,0.05); }
+[data-theme="light"] .prose-chat td { border-top-color: rgba(0,0,0,0.06); }
+
+/* ── Suggestion card hover glow ─────────────────────── */
+.suggestion-card:hover {
+  box-shadow: 0 0 0 1px rgba(139,92,246,0.5), 0 4px 20px rgba(139,92,246,0.15);
+}
+
+/* ── Send button gradient ───────────────────────────── */
+.send-btn {
+  background: linear-gradient(135deg, var(--accent-from), var(--accent-mid));
+}
+.send-btn:hover {
+  background: linear-gradient(135deg, #fb4a6b, #9d6ef7);
+  box-shadow: 0 0 20px rgba(139,92,246,0.4);
+}
+.send-btn:disabled {
+  background: var(--surface2);
+  box-shadow: none;
+}
+
+/* ── Focus rings ────────────────────────────────────── */
+:focus-visible { outline: 2px solid var(--accent-mid); outline-offset: 2px; border-radius: 4px; }
